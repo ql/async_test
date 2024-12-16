@@ -1,0 +1,19 @@
+<table border>
+<% @saved_pages.each do |sp| %>
+  <tr>
+    <td>
+      <%= sp.id %>
+    </td>
+    <td>
+      <%= sp.url %>
+    </td>
+    <td>
+      <%= sp.saved_body.size %>
+    </td>
+    <td>
+      <%= sp.elapsed_time %>
+    </td>
+  </tr>
+<% end %>
+</table>
+

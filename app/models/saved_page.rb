@@ -1,0 +1,2 @@
+class SavedPage < ApplicationRecord
+end
