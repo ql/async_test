@@ -11,3 +11,5 @@ gem 'faraday', '2.9.0'
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
+gem 'parallel'
+gem 'async' # socketry/async for fibers concurrency
