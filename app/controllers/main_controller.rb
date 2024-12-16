@@ -1,5 +1,6 @@
 require 'async'
 class MainController < ApplicationController
+  # throw in some really slow URLs
   URLS = %w[
     https://kemkes.go.id/eng/home
     https://moh.gov.la/
@@ -14,12 +15,14 @@ class MainController < ApplicationController
     https://www.education.govt.nz/
   ]
 
+  # Imitate non-IO load
   def ordinary_load
     @page = Page.last!
     1000000.times { 1 + 1 }
     render :ordinary_load
   end
 
+  # Baseline: ordinary loop fetching everything in a sequence
   def sequential_io_load
     @saved_pages = []
     URLS.each do |url|
@@ -34,6 +37,7 @@ class MainController < ApplicationController
     render :saved_pages
   end
 
+  # parallel fetching using threads and gem parallel
   def parallel_io_load
     @saved_pages = []
     Parallel.each(URLS, in_threads: 10) do |url|
@@ -49,6 +53,7 @@ class MainController < ApplicationController
     render :saved_pages
   end
 
+  # async fetching using fibers, ActiveRecord is inside async IO operation
   def async_io_load
     @saved_pages = []
     tasks = []
@@ -72,7 +77,7 @@ class MainController < ApplicationController
   end
 
   # for test purposes only:
-
+  # async fetching using fibers, ActiveRecord is outside async IO operation
   def async_io_load_db_outside
     @saved_pages = []
     tasks = []

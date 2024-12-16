@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Usage
 
-Things you may want to cover:
+```
+ab -n 100 -c 2 localhost:3000/main
 
-* Ruby version
+httperf --verbose --server localhost --port 3000 --uri="http://localhost:3000/sequential_io_load"  --num-conns 5 --rate 1 --timeout=30
 
-* System dependencies
 
-* Configuration
+httperf --verbose --server localhost --port 3000 --uri="http://localhost:3000/parallel_io_load"  --num-conns 5 --rate 1 --timeout=30
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+httperf --verbose --server localhost --port 3000 --uri="http://localhost:3000/async_io_load"  --num-conns 5 --rate 1 --timeout=30
+```
